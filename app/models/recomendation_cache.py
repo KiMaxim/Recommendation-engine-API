@@ -5,8 +5,8 @@ from datetime import datetime
 from user import Base
 import uuid
 
-class RecomendationCache(Base):
-    __tablename__ = "recomendation_cache"
+class RecommendationCache(Base):
+    __tablename__ = "recommendation_cache"
 
     user_id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, nullable=False, default=uuid.uuid4)
     item_ids: Mapped[list[uuid.UUID]] = mapped_column(JSON, nullable=False, default_factory=list)  

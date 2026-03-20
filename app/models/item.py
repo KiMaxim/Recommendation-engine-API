@@ -2,6 +2,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy import func, Index
 from datetime import datetime
+from typing import Optional
 from user import Base
 import uuid
 
@@ -10,10 +11,10 @@ class Item(Base):
 
     id: Mapped[uuid.UUID] = mapped_column(UUID, primary_key=True, default=uuid.uuid4)
     title: Mapped[str] = mapped_column(nullable=False)
-    description: Mapped[str | None]
-    category: Mapped[str | None]
+    description: Mapped[Optional[str]] = mapped_column(nullable=False)
+    category: Mapped[Optional[str]] = mapped_column(nullable=False)
     tags: Mapped[list[str]] = mapped_column(JSONB, default_factory=list)
-    metadata: Mapped[dict] = mapped_column(JSONB, default_factory=dict)
+    extra_data: Mapped[dict] = mapped_column("metadata", JSONB, default_factory=dict)
     embeddings: Mapped[list[float]] = mapped_column(JSONB, default_factory=list)
     created_at: Mapped[datetime] = mapped_column(default=func.now())
     updated_at: Mapped[datetime] = mapped_column(default=func.now(), onupdate=func.now())

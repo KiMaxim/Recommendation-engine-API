@@ -13,7 +13,7 @@ class Interaction(Base):
     item_id: Mapped[uuid.UUID] = mapped_column(UUID, nullable=False)
     event_type: Mapped[str] = mapped_column(nullable=False)  # e.g. "click", "purchase"
     action: Mapped[str] = mapped_column(nullable=False)  # e.g. "view", "like", "purchase"
-    metadata: Mapped[dict] = mapped_column(JSONB, default_factory=dict)  
+    extra_data: Mapped[dict] = mapped_column("metadata", JSONB, default_factory=dict)
     created_at: Mapped[datetime] = mapped_column(default=func.now())
 
 
