@@ -1,3 +1,4 @@
+from time import timezone
 from typing import Optional
 
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
@@ -18,3 +19,5 @@ class User(Base):
     hashed_password: Mapped[str] = mapped_column(nullable=False)
     display_name: Mapped[Optional[str]] = mapped_column()
     preferences: Mapped[dict] = mapped_column(JSONB, default_factory=dict) # JSONB for storing user preferences
+    created_at: Mapped[datetime] = mapped_column(default=func.now())
+    updated_at: Mapped[datetime] = mapped_column(default=func.now())
