@@ -6,8 +6,8 @@ settings = get_settings()
 
 engine = create_async_engine(
     settings.DATABASE_URL, 
-    pool_size = 10,
-    max_overflow = 20,
+    pool_size = settings.POOL_SIZE,
+    max_overflow = settings.MAX_OVERFLOW,
     echo=settings.DEBUG
 )
 
