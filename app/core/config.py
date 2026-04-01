@@ -23,11 +23,11 @@ class Settings(BaseSettings):
     EMBEDDING_MODEL: str
     MAX_TOKENS: int
     SYSTEM_INSTRUCTION: str
+    MODEL_PATH: str
 
     #Redis/Cache
     REDIS_HOST: str
     CACHE_TTL_SECONDS: int
-
 
     class Config:
         env_file = ".env"
