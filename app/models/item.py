@@ -2,7 +2,7 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy import func, Index
 from datetime import datetime
-from user import Base
+from app.models import Base
 import uuid
 
 class Item(Base):

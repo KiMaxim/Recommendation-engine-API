@@ -1,7 +1,7 @@
 from sqlalchemy import Column, String, JSON, DateTime, func
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
-from user import Base
+from app.models import Base
 import uuid
 
 class RecommendationCache(Base):
