@@ -1,8 +1,8 @@
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy import func, Index
 from datetime import datetime
-from app.models import Base
+from app.db.base import Base
 import uuid
 
 class Item(Base):
