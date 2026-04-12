@@ -12,9 +12,9 @@ class Item(Base):
     title: Mapped[str] = mapped_column(nullable=False)
     description: Mapped[str | None] = mapped_column(nullable=False)
     category: Mapped[str | None] = mapped_column(nullable=False)
-    tags: Mapped[list[str]] = mapped_column(JSONB, default_factory=list)
-    extra_data: Mapped[dict] = mapped_column("metadata", JSONB, default_factory=dict)
-    embeddings: Mapped[list[float]] = mapped_column(JSONB, default_factory=list)
+    tags: Mapped[list[str]] = mapped_column(JSONB, default=list)
+    extra_data: Mapped[dict] = mapped_column("metadata", JSONB, default=dict)
+    embeddings: Mapped[list[float]] = mapped_column(JSONB, default=list)
     created_at: Mapped[datetime] = mapped_column(default=func.now())
     updated_at: Mapped[datetime] = mapped_column(default=func.now(), onupdate=func.now())
 
