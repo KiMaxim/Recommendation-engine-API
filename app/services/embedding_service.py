@@ -1,17 +1,22 @@
-from sentence_transformers import SentenceTransformer
 from app.core.config import get_settings
-from functools import lru_cache
+import ollama
 
 settings = get_settings()
 
 
-@lru_cache(typed=False, maxsize=None)
-def get_model() -> SentenceTransformer:
-    return SentenceTransformer(settings.MODEL_PATH) #load model from config
-
-
 async def generate_embedding(text: str) -> list[float]:
-    model = get_model()
-    embeddings = model.encode(text, normalize_embeddings=True) #generate embedding using local model
-    return embeddings.tolist()
+    """
+    Generate embeddings for the given text using Ollama embedding model.
+    
+    Args:
+        text: The input text to generate embeddings for
+        
+    Returns:
+        A list of floats representing the embedding vector
+    """
+    response = ollama.embeddings(
+        model=settings.EMBEDDING_MODEL,
+        prompt=text
+    )
+    return response["embedding"]
 
