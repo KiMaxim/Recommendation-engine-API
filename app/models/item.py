@@ -3,7 +3,9 @@ from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy import func, Index
 from datetime import datetime
 from app.db.base import Base
+from pgvector.sqlalchemy import Vector
 import uuid
+
 
 class Item(Base):
     __tablename__ = "items"
@@ -14,7 +16,7 @@ class Item(Base):
     category: Mapped[str | None] = mapped_column(nullable=False)
     tags: Mapped[list[str]] = mapped_column(JSONB, default=list)
     extra_data: Mapped[dict] = mapped_column("metadata", JSONB, default=dict)
-    embeddings: Mapped[list[float]] = mapped_column(JSONB, default=list)
+    embeddings: Mapped[Vector] = mapped_column(Vector(1536), default=list)  # Adjust dimension as needed
     created_at: Mapped[datetime] = mapped_column(default=func.now())
     updated_at: Mapped[datetime] = mapped_column(default=func.now(), onupdate=func.now())
 
