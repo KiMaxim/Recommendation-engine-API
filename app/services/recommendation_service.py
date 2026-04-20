@@ -5,7 +5,7 @@ from app.models import user, item, interaction
 from app.services.ai_service import rank_with_ai
 import uuid
 
-class RecomendationService:
+class RecommendationService:
     async def get_collabarative_candidates(self, user_id: uuid.UUID, db: AsyncSession, limit: int = 100) -> dict:
         query = text('''
                     WITH user_items AS (
