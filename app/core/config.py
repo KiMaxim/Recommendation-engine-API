@@ -1,4 +1,4 @@
-from pydantic import BaseSettings
+from pydantic_settings import BaseSettings
 from functools import lru_cache
 
 class Settings(BaseSettings):
@@ -26,11 +26,12 @@ class Settings(BaseSettings):
     MODEL_PATH: str
 
     #Redis/Cache
-    REDIS_HOST: str
+    REDIS_URL: str
     CACHE_TTL_SECONDS: int
 
     class Config:
-        env_file = ".env"
+        case_sensitive = False
+        extra = "ignore"
     
 @lru_cache()
 def get_settings() -> Settings:
