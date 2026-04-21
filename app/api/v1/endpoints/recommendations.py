@@ -3,6 +3,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.db.session import get_db
 from app.models.item import Item
+from app.schemas.item import ItemResponse
 from app.core.dependencies import get_current_user, get_redis
 from app.services.recommendation_service import RecommendationService
 from app.models.user import User
@@ -15,7 +16,7 @@ router = APIRouter()
 svc = RecommendationService()
 
 
-@router.get('/get_recommendations', response_model=list[Item], tags=["recommendations"])
+@router.get('/get_recommendations', response_model=list[ItemResponse], tags=["recommendations"])
 async def get_recommendations(
     strategy: str = Query('hybrid', enum=['hybrid', 'collaborative', 'semantic']), #This query parameter allows the client to specify which recommendation strategy to use. The options are 'hybrid', 'collaborative', and 'semantic'. The default is 'hybrid'.
     top_k: int = Query(10, ge=1, le=50), #This query parameter allows the client to specify how many recommendations to return. The default is 10, and it must be between 1 and 50.
@@ -48,7 +49,7 @@ async def get_recommendations(
 
     return result
 
-@router.get('/get_semantic_candidates', response_model=list[Item], tags=["recommendations"])
+@router.get('/get_semantic_candidates', response_model=list[ItemResponse], tags=["recommendations"])
 async def get_semantic_candidates(
     db: AsyncSession = Depends(get_db), 
     user_embedding: list[float] = Query(..., description="User embedding vector for semantic similarity search (384 dimensions)", min_items=384, max_items=384), 
@@ -80,8 +81,7 @@ async def get_semantic_candidates(
     return result
     
     
-
-@router.get('/get_collaborative_candidates', response_model=list[Item], tags=["recommendations"])
+@router.get('/get_collaborative_candidates', response_model=list[ItemResponse], tags=["recommendations"])
 async def get_collaborative_candidates(
     db: AsyncSession = Depends(get_db), 
     current_user: User = Depends(get_current_user),

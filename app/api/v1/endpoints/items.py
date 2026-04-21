@@ -1,6 +1,4 @@
 import uuid
-
-
 from http import HTTPStatus
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select
@@ -9,7 +7,6 @@ from app.db.session import get_db
 from app.models.item import Item
 from app.services.embedding_service import generate_embedding
 from app.schemas.item import ItemResponse, ItemCreate
-from app.api.v1.router import router
 from app.core.dependencies import get_current_user
 
 router = APIRouter()
